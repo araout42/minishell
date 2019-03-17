@@ -6,7 +6,7 @@
 /*   By: mgheraie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 19:11:04 by mgheraie          #+#    #+#             */
-/*   Updated: 2019/01/30 17:39:09 by mgheraie         ###   ########.fr       */
+/*   Updated: 2019/03/17 05:11:17 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strchr(const char *s, int c)
 	while (*s || *s == c)
 	{
 		if (*s == c)
-			return ((char*)s);
+			return ((char *)s);
 		s++;
 	}
 	return (NULL);

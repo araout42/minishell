@@ -6,7 +6,7 @@
 /*   By: araout <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 04:46:00 by araout            #+#    #+#             */
-/*   Updated: 2019/03/13 05:19:20 by araout           ###   ########.fr       */
+/*   Updated: 2019/03/17 07:28:16 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,8 @@ typedef struct s_minishell
 {
 	char	*cmp;
 	char	**path;
+	char	**env;
+	char	*cmd;
+	int		flag;
 } t_minishell;
 #endif
