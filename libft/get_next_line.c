@@ -6,7 +6,7 @@
 /*   By: araout <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 05:04:09 by araout            #+#    #+#             */
-/*   Updated: 2019/03/13 05:04:40 by araout           ###   ########.fr       */
+/*   Updated: 2019/03/24 08:54:12 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int					fillline(char **line, char **str, int *res)
 
 	tmp = *str;
 	i = 0;
-	while (tmp[i] != '\0' && tmp[i] != '\n')
+	while (tmp && tmp[i] != '\0' && tmp[i] != '\n')
 		i++;
 	if (i == 0 || tmp[0] == '\0')
 	{

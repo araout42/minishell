@@ -8,6 +8,9 @@ HEADERS = 	srcs/ft_ls.h\
 LIB = libft/
 
 SOURCES = 	srcs/minishell.c\
+			srcs/exec_cmd.c\
+			srcs/built_in.c\
+			srcs/ft_set_env.c\
 
 OBJECT = $(SOURCES:.c=.o)
 

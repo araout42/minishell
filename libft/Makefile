@@ -6,7 +6,7 @@
 #    By: mgheraie <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/09 18:02:00 by mgheraie          #+#    #+#              #
-#    Updated: 2019/03/13 05:07:27 by araout           ###   ########.fr        #
+#    Updated: 2019/03/24 10:02:30 by araout           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c  ft_memmove.c ft_memchr.c 
 	ft_lstlen.c ft_lstpushback.c ft_strrev.c ft_strisempty.c ft_strjoin_free.c \
 	ft_power.c ft_joinchar.c ft_nbrlen.c ft_itoa_base.c ft_putnbr_base.c \
 	ft_putfloat.c ft_putlongnbr.c ft_strchri.c ft_intlen.c printf.c  flag.c \
-	converter.c convert.c ft_strichr.c get_next_line.c
+	converter.c convert.c ft_strichr.c get_next_line.c ft_split_str.c\
 
 FLAGS = -Wall -Wextra -Werror
 HEADER = libft.h
