@@ -6,7 +6,7 @@
 /*   By: araout <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 04:45:20 by araout            #+#    #+#             */
-/*   Updated: 2019/03/25 08:28:53 by araout           ###   ########.fr       */
+/*   Updated: 2019/03/27 17:51:12 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,28 @@ char	**ft_getpath(char **env)
 {
 	int		i;
 	char	*tmp;
+	char	**ret;
 
 	i = 0;
-	while (env && *env)
+	if (!env && (ret = ft_memalloc(sizeof(env) * 2)))
 	{
-		tmp = ft_strsub(*env, 0, 5);
-		if (ft_strcmp(tmp, "PATH=") == 0)
+		*ret = ft_strdup("./");
+		ret[1] = NULL;
+		return (ret);
+	}
+	while (*env && (tmp = ft_strsub(*env, 0, 5)))
+	{
+		if (ft_strcmp(tmp, "PATH=") == 0 && ft_strdel(&tmp))
 		{
+			tmp = ft_strsub(*env, 5, ft_strlen(*env) - 5);
+			ret = ft_split_str(tmp, ":");
 			ft_strdel(&tmp);
-			return (ft_split_str(ft_strsub(*env, 5, ft_strlen(*env) - 5), ":"));
+			return (ret);
 		}
+		ft_strdel(&tmp);
 		env++;
 	}
+	ft_strdel(&tmp);
 	return (NULL);
 }
 
@@ -58,13 +68,12 @@ static char		**get_env(char **env)
 	{
 		while (env[i])
 			i++;
-		if (!(newenv = (char **)ft_memalloc(sizeof(newenv) * i)))
+		if (!(newenv = (char **)ft_memalloc(sizeof(char **) * (i + 1) + 1)))
 			return (NULL);
+		newenv[i] = NULL;
 		i = -1;
 		while (env[++i])
-		{
 			newenv[i] = ft_strdup(env[i]);
-		}
 	}
 	else
 		return (NULL);
@@ -89,21 +98,29 @@ char			*sh_lvl(char **env)
 void			minishell(char **env)
 {
 	char			*cmd;
-	t_minishell		*shellstruct;
-	int			i;
-	int			flag;
-
+	t_minishell		*shell;
+	int				i;
+	int				flag;
+	char		*tmp;
 	flag  = 0;
 	i = 1;
-	if (!(shellstruct = (t_minishell * )ft_memalloc(sizeof(*shellstruct))))
+	if (!(shell = (t_minishell * )ft_memalloc(sizeof(*shell))))
 		return ;
-	if ((shellstruct->env = get_env(env)) != NULL)
-		shellstruct->env = set_var_env("SHLVL", sh_lvl(env), shellstruct->env);
+	tmp = sh_lvl(env);
+	if ((shell->env = get_env(env))
+			&& !(shell->env = set_var_env("SHLVL", tmp, shell->env)))
+			return ;
+	if (ft_strcmp(tmp, "1"))
+		ft_strdel(&tmp);
 	ft_printf("%%>");
 	while ((i = get_next_line(0, &cmd)) > 0)
 	{
-		shellstruct->path = ft_getpath(shellstruct->env);
-		try_exec(&shellstruct, ft_strtrim(cmd));
+		shell->path = ft_getpath(shell->env);
+		tmp = ft_strtrim(cmd);
+		try_exec(&shell, tmp);
+		free_cmd(shell->path, NULL);
+		ft_strdel(&cmd);
+		ft_strdel(&tmp);
 		ft_printf("%%>");
 	}
 }

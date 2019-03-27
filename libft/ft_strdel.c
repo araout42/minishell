@@ -6,15 +6,16 @@
 /*   By: mgheraie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 15:57:46 by mgheraie          #+#    #+#             */
-/*   Updated: 2019/03/05 15:26:46 by mgheraie         ###   ########.fr       */
+/*   Updated: 2019/03/27 17:50:12 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_strdel(char **as)
+int		ft_strdel(char **as)
 {
 	if (!as || !*as)
-		return ;
-	return (ft_memdel((void**)as));
+		return (0);
+	ft_memdel((void**)as);
+	return (1);
 }

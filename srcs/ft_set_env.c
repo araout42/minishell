@@ -6,7 +6,7 @@
 /*   By: araout <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 07:31:23 by araout            #+#    #+#             */
-/*   Updated: 2019/03/25 06:29:27 by araout           ###   ########.fr       */
+/*   Updated: 2019/03/27 17:30:51 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char			**dump_env(char **env, int size)
 			return (NULL);
 		return (new);
 	}
-	if (!(new = (char **)ft_memalloc(sizeof(new) * size)))
+	if (!(new = (char **)ft_memalloc(sizeof(new) * (size + 1))))
 		return (NULL);
 	new[size] = NULL;
 	i = -1;
@@ -69,14 +69,18 @@ char			**set_var_env(char *varname, char *value, char **env)
 	int			index;
 
 	index = find_var(varname, env);
-	tmp = ft_strjoin(varname, "=");
+	if (!(tmp = ft_strjoin(varname, "=")))
+		return (NULL);
 	if (env && env[index])
 	{
 		ft_strdel(&env[index]);
 		if (!value)
 			env[index] = tmp;
 		else
+		{
 			env[index] = ft_strjoin(tmp, value);
+			ft_strdel(&tmp);
+		}
 	}
 	else 
 	{
@@ -84,7 +88,10 @@ char			**set_var_env(char *varname, char *value, char **env)
 		if(!value)
 			env[index] = tmp;
 		else
+		{
 			env[index] = ft_strjoin(tmp, value);
+			ft_strdel(&tmp);
+		}
 	}
 	return (env);
 }

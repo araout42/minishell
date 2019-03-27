@@ -6,7 +6,7 @@
 /*   By: mgheraie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 18:02:10 by mgheraie          #+#    #+#             */
-/*   Updated: 2019/03/24 10:02:20 by araout           ###   ########.fr       */
+/*   Updated: 2019/03/27 17:50:04 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int					ft_memcmp(const void *s1, const void *s2, size_t n);
 void				*ft_memalloc(size_t size);
 void				ft_memdel(void **ap);
 char				*ft_strnew(size_t len);
-void				ft_strdel(char **as);
+int					ft_strdel(char **as);
 void				ft_strclr(char *s);
 void				ft_striter(char *s, void (*f) (char*));
 void				ft_striteri(char *s, void (*f) (unsigned int, char*));
