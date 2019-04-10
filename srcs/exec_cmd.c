@@ -6,7 +6,7 @@
 /*   By: araout <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 05:08:50 by araout            #+#    #+#             */
-/*   Updated: 2019/03/27 18:52:32 by araout           ###   ########.fr       */
+/*   Updated: 2019/04/10 05:01:51 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int			check_perms(char *path)
 	return (flag);
 }
 
-int			execute_cmd(char **path, char *cmd, t_minishell **shell)
+int			execute_cmd(char **path, char **cmd, t_minishell **shell)
 {
 	char	**opt;
 	int		fork_id;
@@ -62,24 +62,43 @@ int			execute_cmd(char **path, char *cmd, t_minishell **shell)
 	if ((*shell)->cmd)
 		ft_strdel(&(*shell)->cmd);
 	if (cmd[0])
-		opt = ft_split_str(cmd,  " \t");
+		opt = ft_split_str(*cmd,  " \t");
 	else
 		return (1);
-	if ((flag = ft_built_in(opt, shell, path)))
+	if ((flag = ft_built_in(opt, shell, path, cmd)))
 	{
 		free_cmd(opt, NULL);
 		return (flag);
 	}
 	else if ((flag = check_perms(*path)) == 1)
 	{
+		signal(SIGINT, catch_sigint2);
 		if (!(fork_id = fork()) && fork_id == 0)
 			execve(*path, opt, (*shell)->env);
 		else
 			wait(NULL);
+		signal(SIGINT, catch_sigint);
 	}
 	(*shell)->cmd = ft_strdup(opt[0]);
 	free_cmd(opt, NULL);
 	return (flag);
+}
+
+int			throw_error2(t_minishell **shellstruct)
+{
+	if ((*shellstruct)->flag == -3)
+	{
+		ft_putstr_fd("cd: Permission denied: ", 2);
+		ft_putstr_fd((*shellstruct)->cmd, 2);
+		ft_putstr_fd("\n", 2);
+	}
+	else if ((*shellstruct)->flag == -4)
+	{
+		ft_putstr_fd("cd: not a directory ", 2);
+		ft_putstr_fd((*shellstruct)->cmd, 2);
+		ft_putstr_fd("\n", 2);
+	}
+	return (0);
 }
 
 int			throw_error(t_minishell **shellstruct)
@@ -102,18 +121,20 @@ int			throw_error(t_minishell **shellstruct)
 		ft_putstr_fd((*shellstruct)->cmd, 2);
 		ft_putstr_fd(" is a Directory.\n", 2);
 	}
+	else
+		throw_error2(shellstruct);
 	return (0);
 }
 
-int			try_exec(t_minishell **shellstruct, char *cmd)
+int			try_exec(t_minishell **shellstruct, char **cmd)
 {
 	int		i;
 	char	*path;
 
 	i = 0;
-	if ((*shellstruct)->path && cmd[0] != '/' && cmd[0] != '.')
+	if ((*shellstruct)->path && (*cmd)[0] != '/' && (*cmd)[0] != '.')
 	{
-		while (((path = get_path(cmd, (*shellstruct)->path[i])) != NULL))
+		while (((path = get_path(*cmd, (*shellstruct)->path[i])) != NULL))
 		{
 			(*shellstruct)->flag = execute_cmd(&path, cmd, shellstruct);
 			if ((*shellstruct)->flag == 1)
@@ -128,7 +149,7 @@ int			try_exec(t_minishell **shellstruct, char *cmd)
 	}
 	else
 	{
-		(*shellstruct)->flag = execute_cmd(&cmd, cmd, shellstruct);
+		(*shellstruct)->flag = execute_cmd(cmd, cmd, shellstruct);
 		throw_error(shellstruct);
 	}
 	return (-1);
@@ -141,7 +162,7 @@ int			free_cmd(char **opt, char **path)
 	i = -1;
 	while (opt && opt[++i])
 		ft_strdel(&opt[i]);
-	free((void **)opt);
+	free((void *)opt);
 	if (path != NULL)
 		ft_strdel(path);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: araout <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 07:31:23 by araout            #+#    #+#             */
-/*   Updated: 2019/03/27 17:30:51 by araout           ###   ########.fr       */
+/*   Updated: 2019/04/09 23:53:19 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,22 +76,16 @@ char			**set_var_env(char *varname, char *value, char **env)
 		ft_strdel(&env[index]);
 		if (!value)
 			env[index] = tmp;
-		else
-		{
-			env[index] = ft_strjoin(tmp, value);
+		else if ((env[index] = ft_strjoin(tmp, value)) || 1)
 			ft_strdel(&tmp);
-		}
 	}
 	else 
 	{
 		env = dump_env(env, index + 1);
 		if(!value)
 			env[index] = tmp;
-		else
-		{
-			env[index] = ft_strjoin(tmp, value);
+		else if ((env[index] = ft_strjoin(tmp, value)) || 1)
 			ft_strdel(&tmp);
-		}
 	}
 	return (env);
 }

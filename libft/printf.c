@@ -6,7 +6,7 @@
 /*   By: mgheraie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 23:03:49 by mgheraie          #+#    #+#             */
-/*   Updated: 2019/02/27 23:04:51 by mgheraie         ###   ########.fr       */
+/*   Updated: 2019/04/10 05:06:52 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,15 @@ void	create_buffer(void *newbuff, size_t size, t_printf *pf)
 {
 	intmax_t	i;
 	int			tmp;
+	char		*nbuf;
 
+	nbuf = newbuff;
 	i = 0;
 	tmp = 0;
 	while ((64 - pf->buffi) < (int)size)
 	{
 		tmp = 64 - pf->buffi;
-		ft_memcpy(&(pf->buff[pf->buffi]), &(newbuff[i]), tmp);
+		ft_memcpy(&(pf->buff[pf->buffi]), &(nbuf[i]), tmp);
 		size -= tmp;
 		i += tmp;
 		pf->buffi += tmp;
@@ -32,7 +34,7 @@ void	create_buffer(void *newbuff, size_t size, t_printf *pf)
 		write(1, pf->buff, pf->buffi);
 		pf->buffi = 0;
 	}
-	ft_memcpy(&(pf->buff[pf->buffi]), &(newbuff[i]), size);
+	ft_memcpy(&(pf->buff[pf->buffi]), &(nbuf[i]), size);
 	pf->buffi += size;
 	pf->len += size;
 }
