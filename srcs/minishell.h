@@ -6,12 +6,12 @@
 /*   By: araout <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 04:46:00 by araout            #+#    #+#             */
-/*   Updated: 2019/04/13 07:30:49 by araout           ###   ########.fr       */
+/*   Updated: 2019/04/13 08:57:51 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL
-# define MINISHELL
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 # include "../libft/libft.h"
 # include <stdlib.h>
@@ -24,14 +24,14 @@
 # include <sys/wait.h>
 # include <signal.h>
 
-typedef struct s_minishell
+typedef struct	s_minishell
 {
 	char	*cmp;
 	char	**path;
 	char	**env;
 	char	*cmd;
 	int		flag;
-} t_minishell;
+}				t_minishell;
 
 void			ft_exit(t_minishell **shell, char **opt, char **path, char **t);
 void			parse_cmd(char **cmd, t_minishell *shell);
@@ -42,7 +42,7 @@ void			catch_sigint(int fake);
 int				ft_built_in(char **opt, t_minishell **sh, char **p, char **t);
 char			*ft_get_command(char *cmd);
 int				execute_cmd(char **path, char **cmd, t_minishell **shell);
-int				try_exec(t_minishell **shellstruct, char **cmd , int i);
+int				try_exec(t_minishell **shellstruct, char **cmd, int i);
 int				free_cmd(char **opt, char **path);
 char			**ft_getpath(char **env, char *tmp);
 char			*ft_cd(char **opt, t_minishell shell, char *path, char *c);
