@@ -6,7 +6,7 @@
 /*   By: araout <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 07:31:23 by araout            #+#    #+#             */
-/*   Updated: 2019/04/13 06:31:35 by araout           ###   ########.fr       */
+/*   Updated: 2019/04/14 11:07:44 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int				find_var(char *varname, char **env)
 	int		i;
 
 	i = 0;
+	if (!env || !env[i])
+		return (i);
 	while (env && env[i] && !is_var(env[i], varname))
 		i++;
 	return (i);

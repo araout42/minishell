@@ -6,7 +6,7 @@
 /*   By: araout <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 04:45:20 by araout            #+#    #+#             */
-/*   Updated: 2019/04/14 09:34:40 by araout           ###   ########.fr       */
+/*   Updated: 2019/04/14 12:05:32 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void			in_loop(t_minishell *shell, char *cmd)
 	if (cmd[0])
 	{
 		cut_cmd = ft_split_str(cmd, ";");
+		ft_strdel(&cmd);
 		while (cut_cmd[++j])
 		{
 			parse_cmd(&cut_cmd[j], shell);
 			shell->path = ft_getpath(shell->env, NULL);
 			if ((tmp = ft_strtrim(cut_cmd[j])) == NULL)
 				return ;
-			ft_strdel(&cmd);
 			if (ft_strlen(tmp))
 				try_exec(&shell, &tmp, 0);
 			ft_strdel(&tmp);
@@ -37,7 +37,6 @@ void			in_loop(t_minishell *shell, char *cmd)
 		free_cmd(cut_cmd, NULL);
 	}
 	ft_printf("%%>");
-	ft_strdel(&cmd);
 }
 
 void			parse_dollar(char **cmd, int i, t_minishell *shell)
@@ -58,6 +57,7 @@ void			minishell(char **env)
 	char			*cmd;
 	char			*check;
 
+	cmd = NULL;
 	check = NULL;
 	signal(SIGINT, catch_sigint);
 	if ((shell = init_minishell(env)) == NULL)

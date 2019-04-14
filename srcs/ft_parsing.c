@@ -6,7 +6,7 @@
 /*   By: araout <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/13 07:13:51 by araout            #+#    #+#             */
-/*   Updated: 2019/04/13 07:37:10 by araout           ###   ########.fr       */
+/*   Updated: 2019/04/14 11:50:19 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ static void		parse_dqote(char **cmd)
 		if (tmp[i] != '"' && ((*cmd)[j] = tmp[i]))
 			j++;
 	}
+	ft_strdel(&tmp);
 }
 
 void			parse_cmd(char **cmd, t_minishell *shell)

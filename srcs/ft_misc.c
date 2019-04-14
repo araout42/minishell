@@ -6,7 +6,7 @@
 /*   By: araout <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/13 07:18:55 by araout            #+#    #+#             */
-/*   Updated: 2019/04/13 07:21:45 by araout           ###   ########.fr       */
+/*   Updated: 2019/04/14 11:42:35 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,18 @@ char			**ft_getpath(char **env, char *tmp)
 {
 	char	**ret;
 
-	if (!env && (ret = ft_memalloc(sizeof(env) * 2)))
+	if (!env)
 	{
+		if (!(ret = ft_memalloc(sizeof(ret) * 2)))
+			return (NULL);
 		ret[0] = ft_strdup("./");
 		ret[1] = NULL;
 		return (ret);
 	}
 	while (*env && (tmp = ft_strsub(*env, 0, 5)))
 	{
-		if (ft_strcmp(tmp, "PATH=") == 0)
+		if (ft_strcmp(tmp, "PATH=") == 0 && (ft_strdel(&tmp)))
 		{
-			ft_strdel(&tmp);
 			tmp = ft_strsub(*env, 5, ft_strlen(*env) - 5);
 			if (!(ret = ft_split_str(tmp, ":")))
 				return (NULL);
@@ -105,7 +106,7 @@ t_minishell		*init_minishell(char **env)
 	shell->cmd = NULL;
 	shell->path = NULL;
 	tmp = sh_lvl(env);
-	if ((shell->env = get_env(env))
+	if (!(shell->env = get_env(env))
 			&& !(shell->env = set_var_env("SHLVL", tmp, shell->env)))
 		return (NULL);
 	if (ft_strcmp(tmp, "1"))

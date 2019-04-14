@@ -6,7 +6,7 @@
 /*   By: araout <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 05:15:26 by araout            #+#    #+#             */
-/*   Updated: 2019/04/13 07:33:58 by araout           ###   ########.fr       */
+/*   Updated: 2019/04/14 11:23:57 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ char			**ft_unsetenv(char **opt, char **env)
 {
 	int		index;
 
+	if (!opt || !*opt || !opt[1])
+	{
+		ft_printf("unsetenv error: Take 1 argument\n");
+		return (env);
+	}
 	index = find_var(opt[1], env);
 	if (env && env[index])
 		env = dump_env_unset(env, index);
