@@ -6,7 +6,7 @@
 /*   By: mgheraie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 23:01:37 by mgheraie          #+#    #+#             */
-/*   Updated: 2019/02/27 23:09:59 by mgheraie         ###   ########.fr       */
+/*   Updated: 2019/04/14 15:00:37 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,17 @@ typedef	struct	s_printf
 	char		*format;
 }				t_printf;
 
-# define DIEZ			(1 << 0)
-# define SPACE			(1 << 1)
-# define PLUS			(1 << 2)
-# define MINUS			(1 << 3)
-# define ZERO			(1 << 4)
-# define SHORT			(1 << 5)
-# define CHAR			(1 << 6)
-# define LONG			(1 << 7)
-# define LONGLONG		(1 << 8)
-# define ISPRECI		(1 << 9)
-# define ISADDRESS		(1 << 10)
+# define DIEZ			1
+# define SPACE			2
+# define PLUS			4
+# define MINUS			8
+# define ZERO			16
+# define SHORT			32
+# define CHAR			64
+# define LONG			128
+# define LONGLONG		256
+# define ISPRECI		521
+# define ISADDRESS		1024
 
 void			create_buffer(void *newbuff, size_t size, t_printf *pf);
 int				ft_printf(const char *format, ...);
