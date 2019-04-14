@@ -23,6 +23,7 @@ all: $(NAME)
 		make -C libft/
 
 $(NAME): $(OBJECT)
+		make -C libft/
 		gcc -o $@ $(CFLAGS) $(OBJECT) libft/libft.a
 
 
