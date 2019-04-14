@@ -2,10 +2,8 @@ NAME = minishell
 
 CFLAGS = -Wall -Wextra -Werror
 
-HEADERS = 	srcs/ft_ls.h\
+HEADERS = 	srcs/minishell.h\
 			libft/libft.h\
-
-LIB = libft/
 
 SOURCES = 	srcs/minishell.c\
 			srcs/exec_cmd.c\
@@ -20,11 +18,14 @@ SOURCES = 	srcs/minishell.c\
 
 OBJECT = $(SOURCES:.c=.o)
 
-$(NAME): $(LIB) $(OBJECT)
-		make -C libft/
-		gcc -o $(NAME) $(CFLAGS) $(OBJECT) libft/libft.a -L./libft
 
 all: $(NAME)
+		make -C libft/
+
+$(NAME): $(OBJECT)
+		gcc -o $@ $(CFLAGS) $(OBJECT) libft/libft.a
+
+
 
 clean:
 		rm -rf $(OBJECT)
@@ -35,3 +36,5 @@ fclean: clean
 		make -C libft fclean
 
 re: fclean all
+
+.PHONY: re fclean clean all

@@ -6,10 +6,11 @@
 /*   By: araout <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 04:45:20 by araout            #+#    #+#             */
-/*   Updated: 2019/04/14 12:05:32 by araout           ###   ########.fr       */
+/*   Updated: 2019/04/14 14:00:57 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "minishell.h"
 
 void			in_loop(t_minishell *shell, char *cmd)
