@@ -6,24 +6,23 @@
 /*   By: araout <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 04:45:20 by araout            #+#    #+#             */
-/*   Updated: 2019/04/14 14:59:13 by araout           ###   ########.fr       */
+/*   Updated: 2019/04/14 15:31:50 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "minishell.h"
 
-void			in_loop(t_minishell *shell, char *cmd)
+void			in_loop(t_minishell *shell, char **cmd)
 {
 	char	*tmp;
 	int		j;
 	char	**cut_cmd;
 
 	j = -1;
-	if (cmd[0])
+	if (cmd && *cmd && **cmd)
 	{
-		cut_cmd = ft_split_str(cmd, ";");
-		ft_strdel(&cmd);
+		cut_cmd = ft_split_str(*cmd, ";");
 		while (cut_cmd[++j])
 		{
 			parse_cmd(&cut_cmd[j], shell);
@@ -37,6 +36,7 @@ void			in_loop(t_minishell *shell, char *cmd)
 		}
 		free_cmd(cut_cmd, NULL);
 	}
+	ft_strdel(cmd);
 	ft_printf("%%>");
 }
 
@@ -59,13 +59,11 @@ void			minishell(char **env)
 	char			*check;
 
 	cmd = NULL;
-	check = NULL;
-	signal(SIGINT, catch_sigint);
 	if ((shell = init_minishell(env)) == NULL)
 		return ;
 	i = 1;
 	while ((i = get_next_line(0, &cmd)) > 0)
-		in_loop(shell, cmd);
+		in_loop(shell, &cmd);
 	check = ft_strdup("0");
 	ft_exit(&shell, NULL, &cmd, &check);
 }

@@ -6,7 +6,7 @@
 /*   By: araout <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/13 07:08:06 by araout            #+#    #+#             */
-/*   Updated: 2019/04/14 15:02:22 by araout           ###   ########.fr       */
+/*   Updated: 2019/04/14 15:10:35 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void			ft_exit(t_minishell **shell, char **opt, char **path, char **t)
 		free_cmd((*shell)->env, &(*shell)->cmd);
 		if (opt && *opt)
 			free_cmd(opt, NULL);
-		if (path)
+		if (path && *path && **path)
 			ft_strdel(path);
 		ft_memdel((void *)shell);
 	}
