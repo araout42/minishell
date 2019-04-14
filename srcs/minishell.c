@@ -6,7 +6,7 @@
 /*   By: araout <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 04:45:20 by araout            #+#    #+#             */
-/*   Updated: 2019/04/13 07:22:24 by araout           ###   ########.fr       */
+/*   Updated: 2019/04/14 09:34:40 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,28 @@
 void			in_loop(t_minishell *shell, char *cmd)
 {
 	char	*tmp;
+	int		j;
+	char	**cut_cmd;
 
+	j = -1;
 	if (cmd[0])
 	{
-		shell->path = ft_getpath(shell->env, NULL);
-		if ((tmp = ft_strtrim(cmd)) == NULL)
-			return ;
-		ft_strdel(&cmd);
-		if (ft_strlen(tmp))
-			try_exec(&shell, &tmp, 0);
-		ft_strdel(&tmp);
-		free_cmd(shell->path, NULL);
-		ft_printf("%%>");
+		cut_cmd = ft_split_str(cmd, ";");
+		while (cut_cmd[++j])
+		{
+			parse_cmd(&cut_cmd[j], shell);
+			shell->path = ft_getpath(shell->env, NULL);
+			if ((tmp = ft_strtrim(cut_cmd[j])) == NULL)
+				return ;
+			ft_strdel(&cmd);
+			if (ft_strlen(tmp))
+				try_exec(&shell, &tmp, 0);
+			ft_strdel(&tmp);
+			free_cmd(shell->path, NULL);
+		}
+		free_cmd(cut_cmd, NULL);
 	}
-	else
-		ft_printf("%%>");
+	ft_printf("%%>");
 	ft_strdel(&cmd);
 }
 
@@ -57,10 +64,7 @@ void			minishell(char **env)
 		return ;
 	i = 1;
 	while ((i = get_next_line(0, &cmd)) > 0)
-	{
-		parse_cmd(&cmd, shell);
 		in_loop(shell, cmd);
-	}
 	check = ft_strdup("0");
 	ft_exit(&shell, NULL, &cmd, &check);
 }
