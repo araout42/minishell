@@ -1,41 +1,58 @@
-NAME = minishell
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: pemora <marvin@42.fr>                      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/01/08 21:44:42 by pemora            #+#    #+#              #
+#    Updated: 2019/04/14 14:53:51 by araout           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-CFLAGS = -Wall -Wextra -Werror
+NAME 	= minishell
 
-HEADERS = 	srcs/minishell.h\
-			libft/libft.h\
+CC		=	gcc
 
-SOURCES = 	srcs/minishell.c\
-			srcs/exec_cmd.c\
-			srcs/built_in.c\
-			srcs/ft_set_env.c\
-			srcs/ft_cd.c\
-			srcs/ft_exit.c\
-			srcs/ft_errors.c\
-			srcs/ft_parsing.c\
-			srcs/ft_signal.c\
-			srcs/ft_misc.c\
+FLAGS 	=  -Wall -Wextra -Werror -ltermcap
 
-OBJECT = $(SOURCES:.c=.o)
-
-
-all: $(NAME)
-		make -C libft/
-
-$(NAME): $(OBJECT)
-		make -C libft/
-		gcc -o $@ $(CFLAGS) $(OBJECT) libft/libft.a
+SRCS 	=	srcs/built_in.c				\
+			srcs/exec_cmd.c				\
+			srcs/ft_cd.c				\
+			srcs/ft_errors.c			\
+			srcs/ft_exit.c				\
+			srcs/ft_misc.c				\
+			srcs/ft_parsing.c			\
+			srcs/ft_set_env.c			\
+			srcs/ft_signal.c				\
+			srcs/minishell.c			\
 
 
+LIBFT 	=	libft
+
+OBJS 	= $(SRCS:.c=.o)
+
+all: lib $(NAME)
+
+$(NAME): $(OBJS)
+		$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LIBFT)/libft.a
+
+lib:
+		make -C $(LIBFT)
 
 clean:
-		rm -rf $(OBJECT)
-		make -C libft clean
+		/bin/rm -rf $(OBJS)
+		make -C $(LIBFT) clean
 
-fclean: clean
-		rm -rf $(NAME)
-		make -C libft fclean
+cleannolib:
+		/bin/rm -rf $(OBJS)
+
+
+fclean:		cleannolib
+		/bin/rm -rf $(NAME)
+		make -C $(LIBFT) fclean
+
+if:
+	if make; then make clean && clear; fi
 
 re: fclean all
-
-.PHONY: re fclean clean all

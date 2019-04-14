@@ -6,7 +6,7 @@
 /*   By: araout <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/13 07:08:06 by araout            #+#    #+#             */
-/*   Updated: 2019/04/14 12:07:00 by araout           ###   ########.fr       */
+/*   Updated: 2019/04/14 14:25:36 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void			ft_exit(t_minishell **shell, char **opt, char **path, char **t)
 {
 	int		i;
-
 	i = 0;
+	
 	if (shell && *shell)
 	{
 		if (ft_strcmp(*t, "0"))
