@@ -6,7 +6,7 @@
 #    By: pemora <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/08 21:44:42 by pemora            #+#    #+#              #
-#    Updated: 2019/04/14 15:00:59 by araout           ###   ########.fr        #
+#    Updated: 2019/05/31 05:59:44 by araout           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME 	= minishell
 
 CC		=	gcc
 
-FLAGS 	=  -Wall -Wextra -Werror
+FLAGS 	=  -Wall -Wextra -Werror -lncurses
 
 SRCS 	=	srcs/built_in.c				\
 			srcs/exec_cmd.c				\

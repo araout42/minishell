@@ -6,7 +6,7 @@
 /*   By: mgheraie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 18:02:10 by mgheraie          #+#    #+#             */
-/*   Updated: 2019/03/27 17:50:04 by araout           ###   ########.fr       */
+/*   Updated: 2019/05/03 02:59:10 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ typedef struct		s_list
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
+
+char				*ft_strsep(char **str, char *token);
+size_t				ft_strcspn(const char *s1, const char *s2);
 char				**ft_split_str(char *str, char *tosplit);
 void				ft_swapp(void *a, void *b);
 char				*ft_strrev(char *str);

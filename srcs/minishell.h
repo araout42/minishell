@@ -6,7 +6,7 @@
 /*   By: araout <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 04:46:00 by araout            #+#    #+#             */
-/*   Updated: 2019/04/13 08:57:51 by araout           ###   ########.fr       */
+/*   Updated: 2019/05/31 06:29:21 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,19 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <signal.h>
+# include <curses.h>
+# include <term.h>
 
-typedef struct	s_minishell
+typedef struct		s_minishell
 {
-	char	*cmp;
-	char	**path;
-	char	**env;
-	char	*cmd;
-	int		flag;
-}				t_minishell;
+	char			*cmp;
+	char			**path;
+	char			**env;
+	char			*cmd;
+	int				flag;
+	struct termios	term;
+	char			*name_term;
+}					t_minishell;
 
 void			ft_exit(t_minishell **shell, char **opt, char **path, char **t);
 void			parse_cmd(char **cmd, t_minishell *shell);

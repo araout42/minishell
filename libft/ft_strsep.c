@@ -1,22 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_swapp.c                                         :+:      :+:    :+:   */
+/*   ft_strsep.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: araout <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/14 03:03:33 by araout            #+#    #+#             */
-/*   Updated: 2018/11/14 03:05:06 by araout           ###   ########.fr       */
+/*   Created: 2019/05/03 01:14:58 by araout            #+#    #+#             */
+/*   Updated: 2019/05/03 02:59:35 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_swapp(void *a, void *b)
+char			*ft_strsep(char **str, char *token)
 {
-	char swapp;
+	char	*begin;
+	char	*end;
 
-	swapp = *(char*)a;
-	*(char*)a = *(char*)b;
-	*(char*)b = swapp;
+	if (!str)
+		return (NULL);
+	begin = *str;
+	if (begin == NULL)
+		return (NULL);
+	end = begin + ft_strcspn(begin, token);
+	if (*end)
+	{
+		*end++ = '\0';
+		*str = end;
+	}
+	else
+		*str = NULL;
+	return (begin);
 }

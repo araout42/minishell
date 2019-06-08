@@ -6,7 +6,7 @@
 /*   By: araout <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/13 07:18:55 by araout            #+#    #+#             */
-/*   Updated: 2019/04/14 11:42:35 by araout           ###   ########.fr       */
+/*   Updated: 2019/05/31 06:45:14 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,23 @@ static char		**get_env(char **env)
 	return (newenv);
 }
 
+int		init_term(t_minishell *sh)
+{
+	if ((sh->name_term = sh->env[(find_var("TERM", sh->env))] + 5) == NULL)
+	{
+		write(2, "error set TERM variable\n", 24);
+		return (-1);
+	}
+	if (tgetent(NULL, sh->name_term) == ERR)
+		return (-1);
+	if (tcgetattr(0, &(sh->term)) == -1)
+		return (-1);
+	sh->term.c_lflag &= ~(ICANON);
+	if (tcsetattr(0, TCSADRAIN, &sh->term) == -1)
+		return (-1);
+	return (1);
+}
+
 t_minishell		*init_minishell(char **env)
 {
 	char			*tmp;
@@ -111,5 +128,7 @@ t_minishell		*init_minishell(char **env)
 		return (NULL);
 	if (ft_strcmp(tmp, "1"))
 		ft_strdel(&tmp);
+	if (init_term(shell) == -1)
+		return (NULL);
 	return (shell);
 }

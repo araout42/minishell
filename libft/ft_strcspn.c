@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_swapp.c                                         :+:      :+:    :+:   */
+/*   ft_strcspn.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: araout <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/14 03:03:33 by araout            #+#    #+#             */
-/*   Updated: 2018/11/14 03:05:06 by araout           ###   ########.fr       */
+/*   Created: 2019/05/03 02:03:38 by araout            #+#    #+#             */
+/*   Updated: 2019/05/03 03:01:28 by araout           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_swapp(void *a, void *b)
+size_t		ft_strcspn(const char *s1, const char *s2)
 {
-	char swapp;
+	size_t ret;
 
-	swapp = *(char*)a;
-	*(char*)a = *(char*)b;
-	*(char*)b = swapp;
+	ret = 0;
+	if (s2 == NULL)
+		return (0);
+	while (*s1)
+	{
+		if (ft_strchr(s2, *s1))
+			return (ret);
+		else
+		{
+			s1++;
+			ret++;
+		}
+	}
+	return (ret);
 }
